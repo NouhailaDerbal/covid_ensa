@@ -3,10 +3,12 @@ import 'package:covidensa/core/consts.dart';
 import 'package:covidensa/pages/question_page.dart';
 import 'package:covidensa/pages/questions.dart';
 import 'package:covidensa/pages/quiz_page.dart';
+import 'package:covidensa/pages/statistic_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'etat_page.dart';
 import 'local_page.dart';
 
 class QuestPage extends StatefulWidget {
@@ -43,6 +45,13 @@ class _QuestPageState extends State<QuestPage> {
                } ,
             ),
             new ListTile(
+              title: new Text("Ton etat "),
+              trailing: new Icon(Icons.arrow_right),
+              onTap:(){
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => EtaPage(), ),);
+              } ,
+            ),
+            new ListTile(
               title: new Text(" Localization"),
               trailing: new Icon(Icons.arrow_upward),
               onTap:(){
@@ -52,6 +61,9 @@ class _QuestPageState extends State<QuestPage> {
             new ListTile(
               title: new Text("Statistique"),
               trailing: new Icon(Icons.arrow_downward),
+              onTap:(){
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => StatisticPage(), ),);
+              } ,
             ),
             new Divider(),
             new ListTile(

@@ -1,10 +1,12 @@
 import 'package:covidensa/core/consts.dart';
 import 'package:covidensa/core/flutter_icons.dart';
+import 'package:covidensa/pages/sign_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import 'form_page.dart';
+import 'formu_page.dart';
 import 'intro_page.dart';
 
 
@@ -234,7 +236,10 @@ class _HomePageState extends State<HomePage> {
     Expanded(
     child: RaisedButton(
     color: Colors.blue,
-    onPressed: (){},
+    onPressed: (){
+      Navigator.of(context).push(MaterialPageRoute(builder:(_) => SignUpPage(), ),);
+
+    },
     child: Text("Inscription",
     style: TextStyle(color: Colors.white),),
     shape: RoundedRectangleBorder(
@@ -260,7 +265,6 @@ class _HomePageState extends State<HomePage> {
     ),
     padding: EdgeInsets.symmetric(vertical: 8),
     ),),
-
     ],),],);
   }
   Widget _buildAppBar(){
