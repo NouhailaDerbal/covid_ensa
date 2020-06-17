@@ -25,6 +25,7 @@ class SignUpPage  extends StatefulWidget {
     );
   }
 }*/
+
 class _SignUpPageState extends State<SignUpPage>  {
   //objet authService
   final AuthService _auth = AuthService();
@@ -35,8 +36,12 @@ class _SignUpPageState extends State<SignUpPage>  {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return  SingleChildScrollView(
+     Size size = MediaQuery.of(context).size;
+    return new Scaffold(
+
+    body: Container(
+      
+      child:SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -52,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage>  {
             RoundedInputField(
               hintText: "Your Email",
               onChanged: (val) {
-                setState(() => email = val);
+                //setState(() => email = val);
               },
             ),
             RoundedPasswordField(
@@ -64,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage>  {
               text: "SIGNUP",
               press: () {
                 //Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
-                //print(this.email);
+                print(this.email);
               },
             ),
             SizedBox(height: size.height * 0.03),
@@ -77,8 +82,9 @@ class _SignUpPageState extends State<SignUpPage>  {
                   ),
           ],
         ),
+    ),
+    ),
     );
-
   }
 }
 
