@@ -5,21 +5,34 @@ import 'package:flutter/material.dart';
 import 'form_page.dart';
 import 'formu_page.dart';
 
+import 'package:covidensa/services/auth.dart';
+
 class SignUpPage  extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
+
 }
 
+/*class _SignUpPageState extends State<SignUpPage> {
+  //inputs state
+  String email = '';
+  String password = '';
 
-class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Body(),
     );
   }
-}
-class Body extends StatelessWidget {
+}*/
+class _SignUpPageState extends State<SignUpPage>  {
+  //objet authService
+  final AuthService _auth = AuthService();
+
+  //inputs state
+  String email = '';
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -38,16 +51,20 @@ class Body extends StatelessWidget {
             ),
             RoundedInputField(
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (val) {
+                setState(() => email = val);
+              },
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              onChanged: (val) {
+                setState(() => password = val);
+              },
             ),
             RoundedButton(
               text: "SIGNUP",
               press: () {
-                Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
-
+                //Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
+                //print(this.email);
               },
             ),
             SizedBox(height: size.height * 0.03),

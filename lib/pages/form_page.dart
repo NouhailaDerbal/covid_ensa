@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:covidensa/core/consts.dart';
 
-
 import 'home_page.dart';
+import 'package:covidensa/services/auth.dart';
 
 
 class FormPage extends StatefulWidget {
@@ -18,6 +18,12 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
 
+  //objet authService
+  final AuthService _auth = AuthService();
+
+  //inputs state
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -87,6 +93,9 @@ children: <Widget>[
                         hintStyle: TextStyle(color: Colors.grey),
                         border:InputBorder.none,
                       ),
+                      onChanged: (val) {
+                        setState(() => email = val);
+                      },
                     ),
                   ),
                   Container(
@@ -100,6 +109,9 @@ children: <Widget>[
                         hintStyle: TextStyle(color: Colors.grey),
                         border:InputBorder.none,
                       ),
+                      onChanged: (val) {
+                        setState(() => password = val);
+                      },
                     ),
                   )
                 ],
@@ -110,8 +122,9 @@ children: <Widget>[
             SizedBox(height: 40,),
         GestureDetector(
           onTap:(){
-            Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
-          } ,
+            //Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
+            print(password);
+          } , 
            child: Container(
               height: 50,
               margin: EdgeInsets.symmetric(horizontal: 50),
