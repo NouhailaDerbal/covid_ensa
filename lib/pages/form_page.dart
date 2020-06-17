@@ -122,7 +122,7 @@ children: <Widget>[
             SizedBox(height: 40,),
         GestureDetector(
           onTap:(){
-            //Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
+            Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
             print(password);
           } , 
            child: Container(
