@@ -1,10 +1,6 @@
 import 'package:covidensa/core/consts.dart';
-import 'package:covidensa/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:covidensa/pages/intro_page.dart';
-import 'package:covidensa/pages/wrapper.dart';
-import 'package:covidensa/models/user.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,18 +10,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User>.value(
-      value: AuthService().user,
-      child:MaterialApp(
-            title: 'Flutter Demo',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: Colors.deepPurple,
-              fontFamily: "Ubunto",
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            home: Wrapper(),
-          ),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        fontFamily: "Ubunto",
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: IntroPage(),
     );
     
   }

@@ -1,12 +1,16 @@
 import 'dart:ffi';
 import 'dart:ui';
 
-
+import 'package:provider/provider.dart';
 import 'package:covidensa/core/consts.dart';
 import 'package:covidensa/pages/home_page.dart';
+import 'package:covidensa/pages/local_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:covidensa/models/user.dart';
+import 'package:covidensa/services/auth.dart';
+
 
 class IntroPage extends StatefulWidget{
   @override
@@ -18,6 +22,8 @@ class IntroPage extends StatefulWidget{
 class _IntroPageState  extends State<IntroPage>{
   @override
   Widget build(BuildContext context) {
+    //final user = Provider.of<User>(context);
+
    return Scaffold(
      body: Container(
        width: MediaQuery.of(context).size.width,
@@ -64,6 +70,9 @@ child: Image.asset("assets/images/logo.png"),
 );
 }
 Widget _buildFooter(BuildContext context){
+
+//final user = Provider.of<User>(context);
+
 return Positioned(bottom: 50,
 child:Container(
 width: MediaQuery.of(context).size.width,
@@ -78,8 +87,13 @@ textAlign: TextAlign.center),
 SizedBox(height: 25),
 GestureDetector(
   onTap:(){
-    Navigator.of(context).push(MaterialPageRoute(builder:(_) => HomePage(), ),);
+    //if (user == null)
+      Navigator.of(context).push(MaterialPageRoute(builder:(_) => HomePage(), ),);
+   /* else
+      Navigator.of(context).push(MaterialPageRoute(builder:(_) => LocalPage(), ),);*/
+    
   } ,
+
 child:Container(
 decoration: BoxDecoration(
 color: Colors.white,

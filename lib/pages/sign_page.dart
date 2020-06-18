@@ -29,10 +29,12 @@ class SignUpPage  extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage>  {
   //objet authService
   final AuthService _auth = AuthService();
-
+  //pour validation
+  final _formKey = GlobalKey<FormState>();
   //inputs state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +42,12 @@ class _SignUpPageState extends State<SignUpPage>  {
     return new Scaffold(
 
     body: Container(
-      
+    child: Form(
+      key: _formKey,
       child:SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+         
           children: <Widget>[
             Text(
               "SIGNUP",
@@ -56,20 +60,31 @@ class _SignUpPageState extends State<SignUpPage>  {
             ),
             RoundedInputField(
               hintText: "Your Email",
+              validator: (val)=> val.isEmpty ? 'champs vide' : null ,
               onChanged: (val) {
-                //setState(() => email = val);
+                setState(() => email = val);
               },
             ),
             RoundedPasswordField(
+              validator: (val)=> val.length<3 ? 'passe très court' : null ,
               onChanged: (val) {
                 setState(() => password = val);
               },
             ),
             RoundedButton(
               text: "SIGNUP",
-              press: () {
+              press: () async {
                 //Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
-                print(this.email);
+                if(_formKey.currentState.validate()){
+                  //print(email);
+                  //print(password);
+                  dynamic result = _auth.register(email, password);
+                  if(result==null) {
+                    setState(() => error = 'email non valide !!');
+                    print(error);
+                  }
+                }
+                
               },
             ),
             SizedBox(height: size.height * 0.03),
@@ -81,6 +96,7 @@ class _SignUpPageState extends State<SignUpPage>  {
                     },
                   ),
           ],
+          ),
         ),
     ),
     ),
@@ -127,18 +143,21 @@ class RoundedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final ValueChanged<String> onChanged;
+  final ValueChanged<String> validator;
   const RoundedInputField({
     Key key,
     this.hintText,
     this.icon = Icons.person,
     this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         onChanged: onChanged,
+        validator: validator,
         cursorColor:Colors.white54,
         decoration: InputDecoration(
           icon: Icon(
@@ -176,17 +195,20 @@ class TextFieldContainer extends StatelessWidget {
 }
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
+  final ValueChanged<String> validator;
   const RoundedPasswordField({
     Key key,
     this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
         onChanged: onChanged,
+        validator: validator,
         cursorColor: Colors.white70,
         decoration: InputDecoration(
           hintText: "Password",
