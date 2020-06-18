@@ -20,10 +20,12 @@ class _FormPageState extends State<FormPage> {
 
   //objet authService
   final AuthService _auth = AuthService();
-
+  //pour validation
+  final _formKey = GlobalKey<FormState>();
   //inputs state
   String email = '';
   String password = '';
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,7 +43,9 @@ class _FormPageState extends State<FormPage> {
         ]
     )
     ),
-         child:Column(
+    child:Form(
+      key: _formKey,
+      child:Column(
            crossAxisAlignment: CrossAxisAlignment.start,
 children: <Widget>[
   SizedBox(height: 80,),
@@ -87,12 +91,13 @@ children: <Widget>[
                     decoration: BoxDecoration(
                       border:Border(bottom: BorderSide(color: Colors.grey[200]))
                     ),
-                    child: TextField(
+                    child: TextFormField(
                       decoration: InputDecoration(
                         hintText: "Email or  cin",
                         hintStyle: TextStyle(color: Colors.grey),
                         border:InputBorder.none,
                       ),
+                      validator: (val)=> val.isEmpty ? 'champs vide' : null ,
                       onChanged: (val) {
                         setState(() => email = val);
                       },
@@ -103,12 +108,13 @@ children: <Widget>[
                     decoration: BoxDecoration(
                         border:Border(bottom: BorderSide(color: Colors.grey[200]))
                     ),
-                    child: TextField(
+                    child: TextFormField(
                       decoration: InputDecoration(
                         hintText: "Password",
                         hintStyle: TextStyle(color: Colors.grey),
                         border:InputBorder.none,
                       ),
+                      validator: (val)=> val.length<3 ? 'passe très court' : null ,
                       onChanged: (val) {
                         setState(() => password = val);
                       },
@@ -121,9 +127,19 @@ children: <Widget>[
             Text("Forgot Password",style: TextStyle(color: Colors.grey),),
             SizedBox(height: 40,),
         GestureDetector(
-          onTap:(){
-            Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
-            print(password);
+          onTap:() async {
+            //Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
+            //print(email);
+            //print(password);
+            if(_formKey.currentState.validate()){
+                  
+                  dynamic result = _auth.login(email, password);
+                  if(result==null) {
+                    setState(() => error = 'user non existe !!');
+                    print(error);
+                  }
+                  Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
+                }
           } , 
            child: Container(
               height: 50,
@@ -143,6 +159,7 @@ children: <Widget>[
         ),],
         ),
       ),
+    
     ),
   )
 ],
@@ -154,7 +171,7 @@ children: <Widget>[
 
 
 
-
+        ),
      );
   }
 }
