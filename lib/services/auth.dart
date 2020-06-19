@@ -1,3 +1,4 @@
+import 'package:covidensa/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:covidensa/models/user.dart';
 
@@ -21,6 +22,9 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+      //association d'un document pour user qui vient d'inscrire
+      await DatabaseService(uid: user.uid).updateUser('omar', 'ait', 'normal', 'benslimane', 4);
+      
       return _userFromFirebaseUser(user);
     } catch(e) {
       print(e.toString());
