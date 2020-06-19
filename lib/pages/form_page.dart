@@ -48,7 +48,7 @@ class _FormPageState extends State<FormPage> {
       child:Column(
            crossAxisAlignment: CrossAxisAlignment.start,
 children: <Widget>[
-  SizedBox(height: 80,),
+  SizedBox(height: 60,),
   Padding(
     padding: EdgeInsets.all(20),
     child: Column(
@@ -123,24 +123,25 @@ children: <Widget>[
                 ],
               ),
             ),
-            SizedBox(height: 40,),
-            Text("Forgot Password",style: TextStyle(color: Colors.grey),),
+            SizedBox(height: 20,),
+            Text("Forgot Password" ,style: TextStyle(color: Colors.grey),),
+            //affichage de l'erreur
+            Text(error,style: TextStyle(color: Colors.red,fontSize: 16.0),),
             SizedBox(height: 40,),
         GestureDetector(
           onTap:() async {
-            //Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
-            //print(email);
-            //print(password);
+            
             if(_formKey.currentState.validate()){
                   
-                  dynamic result = _auth.login(email, password);
-                  if(result==null) {
+                  dynamic result = await _auth.login(email, password);
+                  if(result == null) {
                     setState(() => error = 'user non existe !!');
-                    print(error);
-                  }
-                  Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
+                    print('error :'+error);
+                  } else if (result != null)
+                   {Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),); }
                 }
           } , 
+          
            child: Container(
               height: 50,
               margin: EdgeInsets.symmetric(horizontal: 50),
@@ -152,9 +153,9 @@ children: <Widget>[
               child: Center(
                 child: Text("Login",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),),
 
-
-
-              ),),
+              ),
+              
+              ),
 
         ),],
         ),

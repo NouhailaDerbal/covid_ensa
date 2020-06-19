@@ -60,13 +60,13 @@ class _SignUpPageState extends State<SignUpPage>  {
             ),
             RoundedInputField(
               hintText: "Your Email",
-              validator: (val)=> val.isEmpty ? 'champs vide' : null ,
+              validator: (val) => val.isEmpty ? 'champs vide' : null ,
               onChanged: (val) {
                 setState(() => email = val);
               },
             ),
             RoundedPasswordField(
-              validator: (val)=> val.length<3 ? 'passe très court' : null ,
+              validator: (val)=> val.length<6 ? 'passe très court' : null ,
               onChanged: (val) {
                 setState(() => password = val);
               },
@@ -74,20 +74,23 @@ class _SignUpPageState extends State<SignUpPage>  {
             RoundedButton(
               text: "SIGNUP",
               press: () async {
-                //Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
+                
                 if(_formKey.currentState.validate()){
                   //print(email);
                   //print(password);
-                  dynamic result = _auth.register(email, password);
-                  if(result==null) {
+                  dynamic result = await _auth.register(email, password);
+                  if(result == null) {
                     setState(() => error = 'email non valide !!');
                     print(error);
+                  } else {
+                    Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
                   }
                 }
                 
               },
             ),
             SizedBox(height: size.height * 0.03),
+            Text(error,style: TextStyle(color: Colors.red,fontSize: 16.0)),
             AlreadyHaveAnAccountCheck(
               login: false,
               press: () {

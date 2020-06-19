@@ -1,7 +1,9 @@
 
 import 'package:covidensa/core/consts.dart';
+import 'package:covidensa/pages/home_page.dart';
 import 'package:covidensa/pages/question_page.dart';
 import 'package:covidensa/pages/questions.dart';
+import 'package:covidensa/pages/formu_page.dart';
 import 'package:covidensa/pages/quiz_page.dart';
 import 'package:covidensa/pages/statistic_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +12,8 @@ import 'package:flutter/material.dart';
 
 import 'etat_page.dart';
 import 'local_page.dart';
+import 'package:covidensa/services/auth.dart';
+
 
 class QuestPage extends StatefulWidget {
   @override
@@ -18,7 +22,8 @@ class QuestPage extends StatefulWidget {
 
 
 class _QuestPageState extends State<QuestPage> {
-
+  //objet authService
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -37,7 +42,14 @@ class _QuestPageState extends State<QuestPage> {
 
             ],
             ),
-             new ListTile(
+            new ListTile(
+              title: new Text("Profil"),
+              trailing: new Icon(Icons.person),
+               onTap:(){
+                 Navigator.of(context).push(MaterialPageRoute(builder:(_) => ForPage(), ),);
+               } ,
+            ),
+            new ListTile(
               title: new Text(" Questionaire"),
               trailing: new Icon(Icons.arrow_right),
                onTap:(){
@@ -59,10 +71,18 @@ class _QuestPageState extends State<QuestPage> {
               } ,
             ),
             new ListTile(
-              title: new Text("Statistique"),
+              title: new Text("Statistiques"),
               trailing: new Icon(Icons.arrow_downward),
               onTap:(){
                 Navigator.of(context).push(MaterialPageRoute(builder:(_) => StatisticPage(), ),);
+              } ,
+            ),
+            new ListTile(
+              title: new Text("Déconnexion"),
+              trailing: new Icon(Icons.power),
+              onTap:() async{
+                await _auth.signOut();
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => HomePage(), ),);
               } ,
             ),
             new Divider(),

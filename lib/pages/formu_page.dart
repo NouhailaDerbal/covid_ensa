@@ -48,7 +48,7 @@ Padding _buildHeader(){
     padding:const EdgeInsets.only(top:50),
     child:Align(
       alignment: Alignment.topCenter,
-      child: Text(" Veuillez remplir ce formulaire",
+      child: Text(" Modifier vos informations",
           style: TextStyle(fontSize: 35,height:1.5,color: Colors.white,fontWeight: FontWeight.bold),
           textAlign: TextAlign.center),
     ),
@@ -148,7 +148,7 @@ Widget _buildFooter(BuildContext context){
                   width: MediaQuery.of(context).size.width * .85,
                   height: 60,
                   child:Center(
-                      child:Text("remplir ce formulaire",
+                      child:Text("Enregistrez",
                         style:TextStyle(
                             color: AppColors.mainColor,
                             fontWeight: FontWeight.bold,
