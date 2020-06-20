@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:covidensa/models/user.dart';
 import 'package:covidensa/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,7 +11,8 @@ class DatabaseService {
    this.uid=AuthService.idauth;
 
  }
-
+  //Instance auth
+  final FirebaseAuth _authent = FirebaseAuth.instance;
   //Instance database
    String uid;
   DatabaseService({this.uid});
@@ -27,8 +29,16 @@ class DatabaseService {
       });
   }
 
+  /*-------Etat user------- */    
  
+  Future<String> tonEtat() async {
 
+    final FirebaseUser user  = await _authent.currentUser();
+    String etat='';
+    final docRef = await myDB.collection("users").document(user.uid).get();
+    etat = docRef.data['etat'];
+    return etat;
+  }
  
   //-------------------------Users
 
@@ -53,7 +63,7 @@ Future < void > editUser( int score ) async {
 final FirebaseUser user  = await a.currentUser();
    
 if (user == null) {
-    // User is signed in
+    // User is not signed in
 }
    else{
      String etat="";
