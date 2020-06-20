@@ -9,11 +9,13 @@ import 'package:covidensa/pages/statistic_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:covidensa/pages/etat_normal.dart';
+import 'package:covidensa/pages/etat_poinfecte.dart';
+import 'package:covidensa/pages/etat_infecte.dart';
 import 'etat_page.dart';
 import 'local_page.dart';
 import 'package:covidensa/services/auth.dart';
-
+import 'package:covidensa/services/database.dart';
 
 class QuestPage extends StatefulWidget {
   @override
@@ -24,6 +26,8 @@ class QuestPage extends StatefulWidget {
 class _QuestPageState extends State<QuestPage> {
   //objet authService
   final AuthService _auth = AuthService();
+  //Instance DatabaseService
+  final DatabaseService _db = DatabaseService();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -59,8 +63,17 @@ class _QuestPageState extends State<QuestPage> {
             new ListTile(
               title: new Text("Ton etat "),
               trailing: new Icon(Icons.arrow_right),
-              onTap:(){
-                Navigator.of(context).push(MaterialPageRoute(builder:(_) => EtaPage(), ),);
+              onTap:() async {
+                dynamic result = await _db.tonEtat();
+                //print(result );
+                if (result == 'normal') {
+                  Navigator.of(context).push(MaterialPageRoute(builder:(_) => Eta1Page(), ),);
+                } else if (result == 'ensuivi') {
+                  Navigator.of(context).push(MaterialPageRoute(builder:(_) => Eta2Page(), ),);
+                } else if (result == 'infecté') {
+                  Navigator.of(context).push(MaterialPageRoute(builder:(_) => Eta3Page(), ),);
+                }
+                
               } ,
             ),
             new ListTile(
