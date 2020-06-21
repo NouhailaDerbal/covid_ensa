@@ -88,6 +88,29 @@ if (user == null) {
         print(e);  
     }  
 }   
-
-
+Future <  void  > addUserlier(String nom,String prenom,String adresse,String etat ) async { 
+  try{
+     FirebaseAuth a=FirebaseAuth.instance;
+final FirebaseUser user  = await a.currentUser();
+   
+if (user == null) {
+    // User is not signed in
 }
+   
+      String d = user.uid;
+    await myDB.collection("users").document(d).updateData({  
+         
+        'etat':etat,
+        'nom':nom,
+        'adresse':adresse,
+        'prenom':prenom,
+        
+        
+    }); 
+    } 
+    
+    catch(e) {  
+        print(e);  
+    }  
+
+}}

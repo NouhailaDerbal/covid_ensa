@@ -1,159 +1,208 @@
-import 'package:covidensa/core/consts.dart';
+
+import 'package:covidensa/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:covidensa/pages/quest_page.dart';
+
+
 
 class ForPage extends StatefulWidget{
   @override
   _ForPageState createState() =>  _ForPageState();
+ 
+
+ 
+  
 
 
 }
 
 class _ForPageState  extends State<ForPage>{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors:
-            [
-              AppColors.mainColor,
-              AppColors.mainColor.withOpacity(.5),
-            ])
-        ),
-        child: Stack(
+
+  static var _keyValidationForm = GlobalKey<FormState>();
+TextEditingController _textEditConName = TextEditingController();
+TextEditingController _textEditConEmail = TextEditingController();
+TextEditingController _textEditConPassword = TextEditingController();
+TextEditingController _textEditConConfirmPassword = TextEditingController();
+String etat;
+bool isPasswordVisible = false;
+bool isConfirmPasswordVisible = false;
+
+@override
+void initState() {
+isPasswordVisible = false;
+isConfirmPasswordVisible = false;
+super.initState();
+}
+
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+  
+  body: SingleChildScrollView(
+    child: Padding(
+        padding: EdgeInsets.only(top: 32.0),
+        child: Column(
           children: <Widget>[
-            _buildHeader(),
-            Align(
-              alignment:Alignment.center,
-              child: Container(
-                width: MediaQuery.of(context).size.width * .7,
-                child:Center(
-                  child: Image.asset("assets/images/virus.png"),
-                ),
+            getWidgetImageLogo(),
+            getWidgetRegistrationCard(),
+          ],
+        )),
+  ),
+);
+}
+
+Widget getWidgetImageLogo() {
+return Container(
+    alignment: Alignment.center,
+    child: Padding(
+      padding: const EdgeInsets.only(top: 32, bottom: 32),
+      child: Icon(Icons.ac_unit),
+    ));
+ }
+
+Widget getWidgetRegistrationCard() {
+final FocusNode _passwordEmail = FocusNode();
+final FocusNode _passwordFocus = FocusNode();
+final FocusNode _passwordConfirmFocus = FocusNode();
+String _selectedLocation = 'veuillez saisir votre etat';
+List<String> _locations = ['malade', 'normal'];
+
+return Padding(
+  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+  child: Card(
+    color: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    elevation: 10.0,
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Form(
+        key: _keyValidationForm,
+        child: Column(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              child: Text(
+                'Enregistrer vos informations',
+                style: TextStyle(
+                    fontSize: 18.0),
+              ),
+            ), // title: login
+            Container(
+              child: TextFormField(
+                controller: _textEditConName,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+               
+                onFieldSubmitted: (String value) {
+                  FocusScope.of(context).requestFocus(_passwordFocus);
+                },
+                decoration: InputDecoration(
+                    labelText: 'nom',
+                    //prefixIcon: Icon(Icons.email),
+                    icon: Icon(Icons.perm_identity)),
+              ),
+            ), //text field : user name
+            Container(
+              child: TextFormField(
+                controller: _textEditConEmail,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+               
+                onFieldSubmitted: (String value) {
+                  FocusScope.of(context).requestFocus(_passwordConfirmFocus);
+                },
+                decoration: InputDecoration(
+                    labelText: 'prenom',
+                    //prefixIcon: Icon(Icons.email),
+                    icon: Icon(Icons.perm_identity)),
               ),
             ),
+            //text field: email
+            Container(
+              child:TextFormField(
+                controller: _textEditConPassword,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+               
+                onFieldSubmitted: (String value) {
+                  FocusScope.of(context).requestFocus(_passwordEmail);
+                },
+                decoration: InputDecoration(
+                    labelText: 'adresse',
+                    //prefixIcon: Icon(Icons.email),
+                    icon: Icon(Icons.perm_identity)),
+              ),
+            ), //text field: password
+           
+        
+            Container(
+              child: 
+ 
+DropdownButton<String>(
+   
+              
+  items: <String>['malade', 'normal'].map((String value) {
+    return new DropdownMenuItem<String>(
+      value: value,
+      child: new Text(value),
+    );
+  }).toList(),
+  onChanged: (String newValue) {
+    setState(() {
+      _selectedLocation = newValue;
+      etat=newValue;
+     });
+},
+),
 
-            _buildFooter(context)
+            ),
+
+            Container(
+              margin: EdgeInsets.only(top: 32.0),
+              width: double.infinity,
+              child: RaisedButton(
+             
+                textColor: Colors.white,
+                elevation: 5.0,
+                padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                child: Text(
+                  'Enregistrer vos Informaations',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                onPressed: () {
+                  if (_keyValidationForm.currentState.validate()) {
+                    _onTappedButtonRegister();
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0)),
+              ),
+            ), //button: login
+           
+                
           ],
         ),
       ),
-    );
-  }
-}
-Padding _buildHeader(){
-  return Padding(
-    padding:const EdgeInsets.only(top:50),
-    child:Align(
-      alignment: Alignment.topCenter,
-      child: Text(" Modifier vos informations",
-          style: TextStyle(fontSize: 35,height:1.5,color: Colors.white,fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center),
     ),
-  );
+  ),
+);
 }
-Widget _buildFooter(BuildContext context){
-  return Positioned(bottom: 50,
-    child:Container(
-        width: MediaQuery.of(context).size.width,
-        child:Column(
-          crossAxisAlignment:CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              padding:EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  border:Border(bottom: BorderSide(color: Colors.white))
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Nom et prenom",
-                  hintStyle: TextStyle(color: Colors.white),
-                  border:InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              padding:EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  border:Border(bottom: BorderSide(color: Colors.white))
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "email",
-                  hintStyle: TextStyle(color: Colors.white),
-                  border:InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              padding:EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  border:Border(bottom: BorderSide(color: Colors.white))
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Etat",
-                  hintStyle: TextStyle(color: Colors.white),
-                  border:InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              padding:EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  border:Border(bottom: BorderSide(color: Colors.white))
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Adresse",
-                  hintStyle: TextStyle(color: Colors.white),
-                  border:InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              padding:EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  border:Border(bottom: BorderSide(color: Colors.white))
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Telephone",
-                  hintStyle: TextStyle(color: Colors.white),
-                  border:InputBorder.none,
-                ),
-              ),
-            ),
-            SizedBox(height: 25),
-            GestureDetector(
-              onTap:(){
 
-              } ,
-              child:Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(1, 1),
-                          spreadRadius: 3,
-                          blurRadius: 3,
-                        )
-                      ]
-                  ),
-                  width: MediaQuery.of(context).size.width * .85,
-                  height: 60,
-                  child:Center(
-                      child:Text("Enregistrez",
-                        style:TextStyle(
-                            color: AppColors.mainColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20) ,))
-              ),),],
-        )
-    ),);
+
+
+
+
+
+
+
+void _onTappedButtonRegister() {
+  DatabaseService db= new DatabaseService.authen();
+db.addUserlier( _textEditConName.text, _textEditConEmail.text, _textEditConPassword.text, etat) ;
+Navigator.of(context).push(MaterialPageRoute(builder:(_) => QuestPage(), ),);
+}
+
 }

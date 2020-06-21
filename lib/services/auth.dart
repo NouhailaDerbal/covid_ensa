@@ -28,7 +28,7 @@ static FirebaseUser current;
       FirebaseUser user = result.user;
       //association d'un document pour user qui vient d'inscrire
       authentifi=DatabaseService(uid: user.uid);
-      await DatabaseService(uid: user.uid).updateUser('omar', 'ait', 'normal', 'benslimane', 4);
+      await DatabaseService(uid: user.uid).updateUser('xxxx', 'xxxx', 'xxxx', 'xxxxxx', 0);
       idauth=user.uid;
       return _userFromFirebaseUser(user);
     } catch(e) {
