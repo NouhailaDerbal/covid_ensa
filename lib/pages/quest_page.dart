@@ -3,6 +3,7 @@ import 'package:covidensa/core/consts.dart';
 import 'package:covidensa/pages/home_page.dart';
 import 'package:covidensa/pages/question_page.dart';
 import 'package:covidensa/pages/questions.dart';
+import 'package:covidensa/pages/map_page.dart';
 import 'package:covidensa/pages/formu_page.dart';
 import 'package:covidensa/pages/quiz_page.dart';
 import 'package:covidensa/pages/statistic_page.dart';
@@ -12,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:covidensa/pages/etat_normal.dart';
 import 'package:covidensa/pages/etat_poinfecte.dart';
 import 'package:covidensa/pages/etat_infecte.dart';
-import 'etat_page.dart';
-import 'local_page.dart';
 import 'package:covidensa/services/auth.dart';
 import 'package:covidensa/services/database.dart';
 
@@ -80,7 +79,7 @@ class _QuestPageState extends State<QuestPage> {
               title: new Text(" Localization"),
               trailing: new Icon(Icons.arrow_upward),
               onTap:(){
-                Navigator.of(context).push(MaterialPageRoute(builder:(_) => LocalPage(), ),);
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => MapePage(), ),);
               } ,
             ),
             new ListTile(

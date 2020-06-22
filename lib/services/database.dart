@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covidensa/models/user.dart';
+import 'package:covidensa/models/zone.dart';
 import 'package:covidensa/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -39,7 +40,23 @@ class DatabaseService {
     etat = docRef.data['etat'];
     return etat;
   }
- 
+ /*-------get etat zones------- */ 
+Future<List<Zone>> zoneEtat() async { 
+  final docs = await myDB.collection('zones').getDocuments();
+   return docs.documents.map((doc) {
+        return Zone(
+          uid: doc.documentID ?? '',
+          nom: doc.data['nom'] ?? '',
+          infectes: doc.data['infectes'] ?? '',
+          morts: doc.data['morts'] ?? '',
+          gueris: doc.data['gueris'] ?? '',
+        );
+   }).toList();
+   
+}
+
+
+
   //-------------------------Users
 
    //insertion
