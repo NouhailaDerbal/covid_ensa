@@ -3,10 +3,16 @@ import 'package:covidensa/core/consts.dart';
 import 'package:covidensa/pages/home_page.dart';
 import 'package:covidensa/pages/question_page.dart';
 import 'package:covidensa/pages/questions.dart';
+import 'package:covidensa/pages/testblue.dart';
+import 'package:covidensa/pages/track.dart';
+import 'package:covidensa/pages/finnear.dart';
+import 'package:covidensa/pages/local_page.dart';
+import 'package:covidensa/pages/blue.dart';
 import 'package:covidensa/pages/map_page.dart';
 import 'package:covidensa/pages/formu_page.dart';
 import 'package:covidensa/pages/quiz_page.dart';
 import 'package:covidensa/pages/statistic_page.dart';
+import 'package:covidensa/pages/tracking.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +101,22 @@ class _QuestPageState extends State<QuestPage> {
               onTap:() async{
                 await _auth.signOut();
                 Navigator.of(context).push(MaterialPageRoute(builder:(_) => HomePage(), ),);
+              } ,
+            ),
+              new ListTile(
+              title: new Text("nearby"),
+              trailing: new Icon(Icons.power),
+              onTap:() {
+                
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => MyApp(), ),);
+              } ,
+            ),
+            new ListTile(
+              title: new Text("nearby"),
+              trailing: new Icon(Icons.power),
+              onTap:() {
+                
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => Tracking(), ),);
               } ,
             ),
             new Divider(),
