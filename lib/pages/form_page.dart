@@ -109,10 +109,12 @@ children: <Widget>[
                         border:Border(bottom: BorderSide(color: Colors.grey[200]))
                     ),
                     child: TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Password",
                         hintStyle: TextStyle(color: Colors.grey),
                         border:InputBorder.none,
+                        
                       ),
                       validator: (val)=> val.length<3 ? 'passe très court' : null ,
                       onChanged: (val) {

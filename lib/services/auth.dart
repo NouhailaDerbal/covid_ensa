@@ -7,6 +7,7 @@ class AuthService {
 
 static FirebaseUser current;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseService _dbs = DatabaseService();
   static DatabaseService authentifi ;
   static String idauth;
 
@@ -28,7 +29,7 @@ static FirebaseUser current;
       FirebaseUser user = result.user;
       //association d'un document pour user qui vient d'inscrire
       authentifi=DatabaseService(uid: user.uid);
-      await DatabaseService(uid: user.uid).updateUser('xxxx', 'xxxx', 'xxxx', 'xxxxxx', 0);
+      await DatabaseService(uid: user.uid).updateUser('xxxx', 'xxxx', 'xxxx', 'xxxxxx', 0,'xxxxxx','xxxxxx',email);
       idauth=user.uid;
       return _userFromFirebaseUser(user);
     } catch(e) {
@@ -41,10 +42,15 @@ static FirebaseUser current;
   Future login(String email, String password) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      
       FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+      User userr = _userFromFirebaseUser(user);
+      await _dbs.updateToken(userr);
+
+      return userr;
+
     } catch(e) {
-      print(e.toString());
+      print('erroro :' +e.toString());
       return null;
     }
   }

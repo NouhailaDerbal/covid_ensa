@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:nearby_connections/nearby_connections.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:covidensa/pages/contact_card.dart';
+import 'package:covidensa/services/database.dart';
 
 class Tracking extends StatefulWidget {
   static const String id = 'nearby_interface';
@@ -16,7 +17,9 @@ class Tracking extends StatefulWidget {
 }
 
 class _TrackingState extends State<Tracking> {
-  
+
+final DatabaseService _dbs = DatabaseService();
+
 final Strategy strategy = Strategy.P2P_CLUSTER;
 
   String cId = "0"; //currently connected device ID
@@ -47,36 +50,51 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
       appBar: AppBar(
         leading: Icon(
           Icons.menu,
-          color: Colors.deepPurple[800],
+          color: Colors.white,
         ),
         centerTitle: true,
         title: Text(
-          'TracerX',
+          'Tracking',
           style: TextStyle(
-            color: Colors.deepPurple[800],
+            color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 28.0,
+            fontSize: 22.0,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.deepPurple[800],
       ),
       body:  Builder( builder: (context) => Column(
+        
       children: <Widget>[
+        
       Row(
         //ROW 1
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(margin: EdgeInsets.all(2.0),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                  BoxShadow(color: Colors.deepPurpleAccent[400], spreadRadius: 2)
+                ]
+            ),
+            margin: EdgeInsets.all(5.0),
             child:ButtonBar(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
             Icon(
-                  FontAwesomeIcons.virus,
+                  FontAwesomeIcons.locationArrow,
                   color: Colors.deepPurpleAccent[700],
-                  size: 16.0,
+                  size: 20.0,
                 ),
             
                 new RaisedButton(
-                  child: Text("check location"),
+                  child: Text("Check location"),
+                  color: Colors.deepPurple[300],
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                      splashColor: Colors.grey,
                   onPressed: () async {
                     if (await Nearby().checkLocationPermission()) {
                       Scaffold.of(context).showSnackBar(SnackBar(
@@ -89,7 +107,11 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                   },
                 ),
                 new RaisedButton(
-                  child: Text("demander permession"),
+                  child: Text("Demander permession"),
+                  color: Colors.deepPurple[300],
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                      splashColor: Colors.grey,
                   onPressed: () {
                     Nearby().askLocationPermission();
                   },
@@ -100,20 +122,31 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
         
         ],
       ),
-      Row(
+      Row(mainAxisAlignment: MainAxisAlignment.center,
         //ROW 2
         children: [
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                  BoxShadow(color: Colors.deepPurpleAccent[400], spreadRadius: 2)
+                ]
+            ),
             child:new ButtonBar(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
             Icon(
-                  FontAwesomeIcons.virus,
+                  FontAwesomeIcons.solidHdd,
                   color: Colors.deepPurpleAccent[700],
-                  size: 16.0,
+                  size: 20.0,
                 ),
                 RaisedButton(
-                  child: Text("check storage"),
+                  child: Text("Check storage"),
+                  color: Colors.deepPurple[300],
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                      splashColor: Colors.grey,
                   onPressed: () async {
                     if (await Nearby().checkExternalStoragePermission()) {
                       Scaffold.of(context).showSnackBar(SnackBar(
@@ -127,7 +160,11 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                   },
                 ),
                 RaisedButton(
-                  child: Text("demander permession"),
+                  child: Text("Demander permession"),
+                  color: Colors.deepPurple[300],
+                      textColor: Colors.white,
+                      padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                      splashColor: Colors.grey,
                   onPressed: () {
                     Nearby().askExternalStoragePermission();
                   },
@@ -138,9 +175,16 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
           ),
         ],
       ),
-      Row(
+      SizedBox(height:  10),
+            Image.asset(
+              "assets/images/virus.png",
+              height: 50,
+            ),
+      Row(mainAxisAlignment: MainAxisAlignment.center,
+      
           children: [
           Container(
+            
             child:new ButtonBar(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -199,11 +243,21 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                               return Center(
                                 child: Column(
                                   children: <Widget>[
-                                    Text("id: " + id),
-                                    Text("Name: " + name),
-                                    Text("ServiceId: " + serviceId),
-                                    RaisedButton(
-                                      child: Text("Request Connection"),
+                                    Text("id: " + id,style: TextStyle(
+                                        color: Colors.red,
+                                        //fontWeight: FontWeight.bold,
+                                        fontSize: 26.0,
+                                      ),),
+                                                                
+                                    Text("Nom: " + name,
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      //fontWeight: FontWeight.bold,
+                                      fontSize: 26.0,
+                                    ),),
+                                    //Text("ServiceId: " + serviceId),
+                                    /*RaisedButton(
+                                      //child: Text("Request Connection"),
                                       onPressed: () {
                                         Navigator.pop(context);
                                         Nearby().requestConnection(
@@ -224,17 +278,18 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                                           },
                                         );
                                       },
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                               );
                             },
                           );
+                          print(name);
                           await _firestore.collection('users').document(loggedInUser.uid)
                           .collection('met_with').document(name).setData({
                             'username': name,
                             'contact time': DateTime.now(),
-                            'contact location': 'po'/*await location.getLocation()*/
+                            'token' : await _dbs.getToken(name),
                            
                           },merge:true );
                           print(loggedInUser.email);
@@ -260,10 +315,16 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                
                 
               },
+              
               child: Text(
-                'Start Tracing',
+                
+                'Start Tracking',
+                style: TextStyle(
+                  fontSize: 16
+                ),
                 /*style: kButtonTextStyle,*/
               ),
+              
             ),
             RaisedButton(
               shape: RoundedRectangleBorder(
@@ -278,7 +339,10 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                 print(contactTraces.length);
               },
               child: Text(
-                'Stop Tracing',
+                'Stop Tracking',
+                style: TextStyle(
+                  fontSize: 16
+                ),
                 /*style: kButtonTextStyle,*/
               ),
             ),
@@ -298,9 +362,9 @@ final Strategy strategy = Strategy.P2P_CLUSTER;
                     return ContactCard(
                       imagePath: 'assets/images/safi.jpg',
                       email: contactTraces[index],
-                      infection: 'Not-Infected',
-                      contactUsername: contactTraces[0],
-                      contactTime: contactTimes[0],
+                      infection: 'Non infecté',
+                      contactUsername: contactTraces[index],
+                      contactTime: contactTimes[index],
                       //contactLocation: contactLocations[index],
                     );
                     // Text(contactTraces.length.toString() + ' '+contactTraces.length.toString() )

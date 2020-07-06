@@ -49,7 +49,7 @@ class ContactCard extends StatelessWidget {
                     SizedBox(height: 5.0),
                     BottomSheetText(
                         question: 'Contact Time',
-                        result: contactTime.toString()),
+                        result: contactTime.year.toString() +'/'+contactTime.month.toString()+'/'+contactTime.day.toString()),
                     SizedBox(height: 5.0),
                     BottomSheetText(
                         question: 'Contact Location',

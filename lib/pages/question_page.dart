@@ -66,6 +66,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                   Icon(
                     Icons.ac_unit,
                     size: 52.0,
+                    color: Colors.cyan,
                   ),
                   SizedBox(
                     height: 10.0,
@@ -76,7 +77,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('Tester une autre fois ' 'hhhhhhhhhhh'),
+                child: Text('Tester une autre fois '),
                 onPressed: () {
                   setState(() {
                   db.editUser( score);

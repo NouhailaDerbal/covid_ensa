@@ -42,6 +42,7 @@ dependencies:
   flutter_blue: ^0.7.2
   nearby_connections: ^1.1.1+1
   location: ^3.0.0
+  firebase_messaging: ^6.0.16
   
   
 

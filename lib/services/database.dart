@@ -3,10 +3,12 @@ import 'package:covidensa/models/user.dart';
 import 'package:covidensa/models/zone.dart';
 import 'package:covidensa/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class DatabaseService {
   final  Firestore  myDB = Firestore.instance; 
- 
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
  DatabaseService.authen(){
 
    this.uid=AuthService.idauth;
@@ -20,15 +22,38 @@ class DatabaseService {
   //recuperation de l'objet de la collection users
   final CollectionReference userCollection = Firestore.instance.collection('users');
 
-  Future updateUser(String nom,String prenom,String etat,String adresse,int score) async {
+  Future updateUser(String nom,String prenom,String etat,String adresse,int score,String zone, String token, String email) async {
     return await userCollection.document(uid).setData({
       'nom': nom,
       'prenom' : prenom,
       'etat' : etat,
       'adresse' : adresse,
       'score' : score,
+      'zone' : zone,
+      'token' : token,
+      'email' : email
       });
   }
+
+  /*-------Update token------- */ 
+  Future<void> updateToken(User user) async {
+
+    await myDB.collection("users").document(user.uid).updateData({
+        'token' : await _fcm.getToken(), 
+    });
+    
+  }
+
+  /*-------Get token------- */ 
+  Future<String> getToken(String email) async {
+    String token;
+    final snapshot = await myDB.collection("users").where("email", isEqualTo: email).getDocuments();
+    final docReff = snapshot.documents.first;
+    token = docReff.data['token'];
+    return token;
+    
+  }
+
 
   /*-------Etat user------- */    
  

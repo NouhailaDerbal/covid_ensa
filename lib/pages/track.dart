@@ -225,21 +225,21 @@ class _NearbyInterfaceState extends State<NearbyInterface> {
                 
                 discovery();
                try {
-    bool a = await Nearby().startDiscovery(
-        'userName',
-        strategy,
-        onEndpointFound: (String id,String userName, String serviceId) {
-            // called when an advertiser is found
-            print('object');
-        },
-        onEndpointLost: (String id) {
-            //called when an advertiser is lost (only if we weren't connected to it )
-        },
-        serviceId: "com.example.covidensa", // uniquely identifies your app
-    );
-} catch (e) {
-    // platform exceptions like unable to start bluetooth or insufficient permissions
-}
+              bool a = await Nearby().startDiscovery(
+                  'userName',
+                  strategy,
+                  onEndpointFound: (String id,String userName, String serviceId) {
+                      // called when an advertiser is found
+                      print('object');
+                  },
+                  onEndpointLost: (String id) {
+                      //called when an advertiser is lost (only if we weren't connected to it )
+                  },
+                  serviceId: "com.example.covidensa", // uniquely identifies your app
+              );
+          } catch (e) {
+              // platform exceptions like unable to start bluetooth or insufficient permissions
+          }
                 
               },
               child: Text(
