@@ -2,11 +2,15 @@ import 'package:covidensa/core/consts.dart';
 import 'package:covidensa/pages/home_page.dart';
 import 'package:covidensa/pages/question_page.dart';
 import 'package:covidensa/pages/questions.dart';
+import 'package:covidensa/pages/track.dart';
+import 'package:covidensa/pages/finnear.dart';
+import 'package:covidensa/pages/local_page.dart';
 import 'package:covidensa/pages/map_page.dart';
 import 'package:covidensa/pages/formu_page.dart';
 import 'package:covidensa/pages/quiz_page.dart';
 import 'package:covidensa/pages/stat.dart';
-import 'package:covidensa/pages/statistic_page.dart';
+import 'package:covidensa/pages/notifications.dart';
+import 'package:covidensa/pages/tracking.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +44,7 @@ class _QuestPageState extends State<QuestPage> {
           children: <Widget>[
             new UserAccountsDrawerHeader(
               accountName: new Text("Genie Info"),
-              accountEmail: new Text("ensas@gmailcom"),
+              accountEmail: new Text("omaro@gmailcom"),
               currentAccountPicture: new CircleAvatar(
                 backgroundColor: Colors.deepPurpleAccent,
                 child: new Text("GI"),
@@ -65,7 +69,7 @@ class _QuestPageState extends State<QuestPage> {
             ),
             new ListTile(
               title: new Text(" Questionaire"),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(Icons.question_answer),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -76,7 +80,7 @@ class _QuestPageState extends State<QuestPage> {
             ),
             new ListTile(
               title: new Text("Ton etat "),
-              trailing: new Icon(Icons.arrow_right),
+              trailing: new Icon(Icons.style),
               onTap: () async {
                 dynamic result = await _db.tonEtat();
                 //print(result );
@@ -92,7 +96,7 @@ class _QuestPageState extends State<QuestPage> {
                       builder: (_) => Eta2Page(),
                     ),
                   );
-                } else if (result == 'infecté') {
+                } else if (result == 'infecte') {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => Eta3Page(),
@@ -102,8 +106,8 @@ class _QuestPageState extends State<QuestPage> {
               },
             ),
             new ListTile(
-              title: new Text(" Localization"),
-              trailing: new Icon(Icons.arrow_upward),
+              title: new Text(" Localisation"),
+              trailing: new Icon(Icons.location_on),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -114,7 +118,7 @@ class _QuestPageState extends State<QuestPage> {
             ),
             new ListTile(
               title: new Text("Statistiques"),
-              trailing: new Icon(Icons.arrow_downward),
+              trailing: new Icon(Icons.pie_chart),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -122,6 +126,14 @@ class _QuestPageState extends State<QuestPage> {
                   ),
                 );
               },
+            ),
+            new ListTile(
+              title: new Text("Tracking"),
+              trailing: new Icon(Icons.track_changes),
+              onTap:() {
+                
+                Navigator.of(context).push(MaterialPageRoute(builder:(_) => Tracking(), ),);
+              } ,
             ),
             new ListTile(
               title: new Text("Déconnexion"),
@@ -135,6 +147,7 @@ class _QuestPageState extends State<QuestPage> {
                 );
               },
             ),
+              
             new Divider(),
             new ListTile(
               title: new Text("Close"),

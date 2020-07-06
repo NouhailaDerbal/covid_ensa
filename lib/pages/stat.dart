@@ -48,6 +48,10 @@ class _Stat extends State<Stat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
         actions: <Widget>[
           IconButton(
               icon: Icon(Theme.of(context).brightness == Brightness.light
@@ -62,7 +66,12 @@ class _Stat extends State<Stat> {
         ],
         centerTitle: false,
         title: Text(
-          'Statistique',
+          'Statistiques',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
         ),
       ),
       body: RefreshIndicator(

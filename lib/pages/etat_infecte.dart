@@ -27,8 +27,20 @@ class _Eta3PageState extends State<Eta3Page> {
     );
     return new Scaffold(
       appBar: AppBar(
-        title: new Text("Etat Infecté",),
-        elevation: defaultTargetPlatform==TargetPlatform.android?5.0:0.0,
+        leading: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
+        centerTitle: true,
+        title: Text(
+          'Etat infecté',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple[800],
       ),
       body:ListView(
         children: <Widget>[

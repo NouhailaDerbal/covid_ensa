@@ -53,9 +53,21 @@ class _MapePageState extends State<MapePage> {
         if (snapshot.data == true) {*/
           return Scaffold(
               appBar: AppBar(
-                title: Text('Map Covid Safi'),
-                backgroundColor: Colors.deepPurple,
-              ),
+        leading: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
+        centerTitle: true,
+        title: Text(
+          'Map covid safi',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple[800],
+      ),
               body: Stack(
                   children: <Widget>[
                     _buildGoogleMap(context),
@@ -125,14 +137,14 @@ Widget _buildContainer() {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: _boxes(
-                  "assets/images/safi.jpg",
+                  "assets/images/byada.jpg",
                   32.285600, -9.222647,jrifat),
             ),
             SizedBox(width: 10.0),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: _boxes(
-                  "assets/images/safi.jpg",
+                  "assets/images/byada.jpg",
                   32.297463, -9.219042,essaada),
             ),
           ],
@@ -328,7 +340,8 @@ Marker biyadaMarker = Marker(
   markerId: MarkerId('biyada'),
   position: LatLng(32.304559, -9.234414),
   infoWindow: InfoWindow(
-    title:'Biyada'
+    title:'Biyada',
+    snippet: 'Danger'
   ),
   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
 );

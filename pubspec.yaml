@@ -40,6 +40,11 @@ dependencies:
   google_maps_flutter: ^0.5.28+1
   font_awesome_flutter: ^8.8.1
   flutter_blue: ^0.7.2
+  nearby_connections: ^1.1.1+1
+  location: ^3.0.0
+  firebase_messaging: ^6.0.16
+  
+  
 
 
 dev_dependencies:

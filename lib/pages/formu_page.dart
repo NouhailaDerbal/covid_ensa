@@ -38,14 +38,35 @@ super.initState();
 @override
 Widget build(BuildContext context) {
 return Scaffold(
-  
+   appBar: AppBar(
+        leading: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
+        centerTitle: true,
+        title: Text(
+          'Profil',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple[800],
+      ),
   body: SingleChildScrollView(
+    
     child: Padding(
         padding: EdgeInsets.only(top: 32.0),
         child: Column(
           children: <Widget>[
             getWidgetImageLogo(),
             getWidgetRegistrationCard(),
+            SizedBox(height:  50),
+            Image.asset(
+              "assets/images/virus.png",
+              height: 120,
+            ),
           ],
         )),
   ),
@@ -57,7 +78,9 @@ return Container(
     alignment: Alignment.center,
     child: Padding(
       padding: const EdgeInsets.only(top: 32, bottom: 32),
-      child: Icon(Icons.ac_unit),
+      child: Icon(Icons.person_pin_circle,
+                  size: 50,
+      ),
     ));
  }
 
@@ -71,7 +94,7 @@ List<String> _locations = ['malade', 'normal'];
 return Padding(
   padding: const EdgeInsets.only(left: 16.0, right: 16.0),
   child: Card(
-    color: Colors.white,
+    color: Colors.deepPurpleAccent[100],
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),
@@ -88,7 +111,7 @@ return Padding(
               child: Text(
                 'Enregistrer vos informations',
                 style: TextStyle(
-                    fontSize: 18.0),
+                    fontSize: 18.0,color: Colors.white),
               ),
             ), // title: login
             Container(
@@ -134,7 +157,7 @@ return Padding(
                 decoration: InputDecoration(
                     labelText: 'adresse',
                     //prefixIcon: Icon(Icons.email),
-                    icon: Icon(Icons.perm_identity)),
+                    icon: Icon(Icons.location_on)),
               ),
             ), //text field: password
            
@@ -145,7 +168,7 @@ return Padding(
 DropdownButton<String>(
    
               
-  items: <String>['malade', 'normal'].map((String value) {
+  items: <String>['infecte', 'normal'].map((String value) {
     return new DropdownMenuItem<String>(
       value: value,
       child: new Text(value),
@@ -166,7 +189,7 @@ DropdownButton<String>(
               width: double.infinity,
               child: RaisedButton(
              
-                textColor: Colors.white,
+                textColor: Colors.deepPurpleAccent,
                 elevation: 5.0,
                 padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
                 child: Text(

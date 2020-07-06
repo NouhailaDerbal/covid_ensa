@@ -26,9 +26,21 @@ class _Eta1PageState extends State<Eta1Page> {
     );
     return new Scaffold(
         appBar: AppBar(
-        title: new Text("Etat Normal",),
-    elevation: defaultTargetPlatform==TargetPlatform.android?5.0:0.0,
-    ),
+        leading: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
+        centerTitle: true,
+        title: Text(
+          'Etat normal',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple[800],
+      ),
       body:ListView(
         children: <Widget>[
             imageSliderCarousel,
